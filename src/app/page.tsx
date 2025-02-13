@@ -1,101 +1,142 @@
-import Image from "next/image";
+'use client';
+
+import DigitalClock from '../components/DigitalClock';
+import Weather from '../components/Weather';
+import TodoList from '../components/TodoList';
+import NewsSection from '../components/NewsSection';
+import WorkTime from '../components/WorkTime';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="min-h-screen bg-black text-white">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-center z-10"
+        >
+          <h1 className="text-8xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p className="text-2xl text-gray-400">Your personal command center</p>
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Content Sections */}
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Clock & Weather Section */}
+        <section className="py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-2 gap-8"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div className="space-y-4">
+              <h2 className="text-5xl font-semibold mb-8 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Time & Weather
+              </h2>
+              <DigitalClock />
+            </div>
+            <div className="flex items-center justify-center">
+              <Weather />
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Work Management Section */}
+        <section className="py-12 border-t border-gray-800">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-2 gap-8"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <div className="space-y-4">
+              <h2 className="text-5xl font-semibold mb-8 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Work Management
+              </h2>
+              <WorkTime />
+            </div>
+            <div className="flex items-center justify-center">
+              <TodoList />
+            </div>
+          </motion.div>
+        </section>
+
+        {/* News Section */}
+        <section className="py-12 border-t border-gray-800">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-5xl font-semibold mb-8 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              Latest News
+            </h2>
+            <NewsSection />
+          </motion.div>
+        </section>
+
+        {/* Notion & Calendar Section */}
+        <section className="py-12 border-t border-gray-800">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-2 gap-8"
+          >
+            {/* Notion Link */}
+            <div>
+              <h2 className="text-5xl font-semibold mb-8 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Workspace
+              </h2>
+              <motion.a
+                href="https://jhseo808.notion.site/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                className="block p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl
+                         border border-gray-800 hover:border-gray-700 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <img 
+                    src="https://www.notion.so/images/logo-ios.png" 
+                    alt="Notion" 
+                    className="w-12 h-12"
+                  />
+                  <div>
+                    <h3 className="text-2xl font-semibold mb-2">Notion Workspace</h3>
+                    <p className="text-gray-400">Open workspace in new tab →</p>
+                  </div>
+                </div>
+              </motion.a>
+            </div>
+
+            {/* Calendar */}
+            <div>
+              <h2 className="text-5xl font-semibold mb-8 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Calendar
+              </h2>
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 border border-gray-800">
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FSeoul&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0"
+                  className="w-full h-[300px] rounded-2xl"
+                  frameBorder="0"
+                  scrolling="no"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </section>
+      </div>
+
+      {/* Subtle background gradient */}
+      <div className="fixed inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 pointer-events-none" />
+    </main>
   );
 }

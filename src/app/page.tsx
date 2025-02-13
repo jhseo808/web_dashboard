@@ -6,6 +6,7 @@ import TodoList from '../components/TodoList';
 import NewsSection from '../components/NewsSection';
 import WorkTime from '../components/WorkTime';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -104,11 +105,14 @@ export default function Home() {
                          border border-gray-800 hover:border-gray-700 transition-all duration-300"
               >
                 <div className="flex items-center gap-4">
-                  <img 
-                    src="https://www.notion.so/images/logo-ios.png" 
-                    alt="Notion" 
-                    className="w-12 h-12"
-                  />
+                  <div className="relative w-12 h-12">
+                    <Image
+                      src="https://www.notion.so/images/logo-ios.png"
+                      alt="Notion"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                   <div>
                     <h3 className="text-2xl font-semibold mb-2">Notion Workspace</h3>
                     <p className="text-gray-400">Open workspace in new tab →</p>

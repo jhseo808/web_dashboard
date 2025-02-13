@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface WeatherData {
   temp: number;
@@ -95,11 +96,14 @@ export default function Weather() {
         transition={{ delay: 0.2, duration: 0.8 }}
         className="relative w-40 h-40 mx-auto"
       >
-        <img
-          src={`https://openweathermap.org/img/wn/${weather.icon}@4x.png`}
-          alt={weather.description}
-          className="w-full h-full object-contain drop-shadow-2xl"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src={`https://openweathermap.org/img/wn/${weather.icon}@4x.png`}
+            alt={weather.description}
+            fill
+            className="object-contain drop-shadow-2xl"
+          />
+        </div>
       </motion.div>
       
       <motion.div

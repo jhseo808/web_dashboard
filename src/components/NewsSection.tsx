@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import OpenAI from 'openai';
 
 interface NewsItem {
   title: string;
@@ -10,48 +9,26 @@ interface NewsItem {
   source: string;
 }
 
+const STATIC_NEWS: NewsItem[] = [
+  {
+    title: "새로운 기술 트렌드",
+    description: "2024년 주목해야 할 새로운 기술 트렌드와 혁신적인 변화들을 소개합니다.",
+    source: "https://news.google.com"
+  },
+  {
+    title: "AI 발전 동향",
+    description: "인공지능 기술의 최신 발전 동향과 산업에 미치는 영향에 대해 알아봅니다.",
+    source: "https://news.google.com"
+  },
+  {
+    title: "개발자 커리어",
+    description: "소프트웨어 개발자의 성장과 커리어 개발을 위한 인사이트를 공유합니다.",
+    source: "https://news.google.com"
+  }
+];
+
 export default function NewsSection() {
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true
-  });
-
-  const fetchNews = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content: `오늘의 주요 뉴스를 제공해주세요. 각 뉴스는 제목, 설명, 출처 링크를 포함해야 합니다. 
-                     최소 3개의 주요 뉴스를 JSON 형식으로 반환해주세요.`
-          },
-          {
-            role: "user",
-            content: "오늘의 주요 뉴스를 알려주세요."
-          }
-        ],
-        model: "gpt-4-turbo-preview",
-        response_format: { type: "json_object" }
-      });
-
-      const response = completion.choices[0].message.content;
-      if (response) {
-        const newsData = JSON.parse(response);
-        setNews(newsData.news || []);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : '뉴스를 불러오는데 실패했습니다.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [news] = useState<NewsItem[]>(STATIC_NEWS);
 
   return (
     <motion.div
@@ -60,44 +37,6 @@ export default function NewsSection() {
       transition={{ duration: 1 }}
       className="w-full"
     >
-      <motion.button
-        onClick={fetchNews}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full mb-8 px-6 py-3 bg-gray-900/50 border border-gray-800 rounded-2xl
-                 text-white text-lg font-medium shadow-lg hover:bg-gray-800/50
-                 transition-colors flex items-center justify-center gap-2"
-        disabled={loading}
-      >
-        {loading ? (
-          <>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full"
-            />
-            <span>뉴스 불러오는 중...</span>
-          </>
-        ) : (
-          <>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            <span>뉴스 새로고침</span>
-          </>
-        )}
-      </motion.button>
-
-      {error && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 p-4 bg-red-500/20 border border-red-500/30 rounded-2xl text-red-400"
-        >
-          {error}
-        </motion.div>
-      )}
-
       <motion.div
         className="space-y-4 max-h-[600px] overflow-y-auto pr-4 custom-scrollbar"
         layout
